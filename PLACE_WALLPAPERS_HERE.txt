@@ -1,16 +1,14 @@
-Drop your wallpaper images into this folder.
+Drop your wallpaper images into:
 
-Naming convention (must match res/xml/wallpapers.xml):
-  wallpaper_1.png
-  wallpaper_2.png
-  wallpaper_3.png
+  res/drawable-nodpi/
+
+Naming:
+  <name>.jpg / <name>.png   (no spaces, underscores only)
 
 Requirements:
   - Format     : PNG / JPG / WebP
   - Resolution : >= 1080x2460 (this device), ideally 1440x3200
-  - NO spaces in filenames, use underscores
 
-The wallpaper_*.png currently in this folder are throwaway 1080x2460 placeholders.
-Replace them, then update:
-  1. res/xml/wallpapers.xml  -> one <static-wallpaper> per image (un-namespaced attributes!)
+Then register each image:
+  1. res/xml/wallpapers.xml  -> one <static-wallpaper> per image (UN-namespaced attributes!)
   2. res/values/strings.xml  -> the title string per wallpaper

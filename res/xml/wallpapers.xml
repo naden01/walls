@@ -17,19 +17,14 @@
         title="@string/naze_wall_title">
 
         <static-wallpaper
-            id="wallpaper_1"
-            src="@drawable/wallpaper_1"
-            title="@string/wallpaper_1_title" />
+            id="chilling"
+            src="@drawable/chilling"
+            title="@string/chilling_title" />
 
         <static-wallpaper
-            id="wallpaper_2"
-            src="@drawable/wallpaper_2"
-            title="@string/wallpaper_2_title" />
-
-        <static-wallpaper
-            id="wallpaper_3"
-            src="@drawable/wallpaper_3"
-            title="@string/wallpaper_3_title" />
+            id="grreengreebn"
+            src="@drawable/grreengreebn"
+            title="@string/green_title" />
 
     </category>
 
