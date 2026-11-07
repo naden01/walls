@@ -62,3 +62,4 @@ appear next to these.
 - `res/xml/wallpapers.xml` — category "Naze Wall" + wallpaper list
 - `res/values/strings.xml` — category and wallpaper titles
 - `res/drawable-nodpi/` — wallpaper images
+- `ringtones/` — extra audio assets kept with the module (not installed by the build)
