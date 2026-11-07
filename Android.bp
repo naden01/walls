@@ -5,5 +5,4 @@ android_app {
     manifest: "AndroidManifest.xml",
     certificate: "platform",
     product_specific: true,
-    no_code: true,
 }
