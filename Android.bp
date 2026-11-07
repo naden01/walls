@@ -1,0 +1,9 @@
+android_app {
+    name: "CustomWallpapers",
+    srcs: [],
+    resource_dirs: ["res"],
+    manifest: "AndroidManifest.xml",
+    certificate: "platform",
+    product_specific: true,
+    no_code: true,
+}

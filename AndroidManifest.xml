@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.custom.wallpapers">
+
+    <application
+        android:label="Naze Wall"
+        android:hasCode="false">
+
+        <!--
+            Partner-customization hook. The wallpaper picker discovers this package by
+            querying broadcast receivers for this action (DefaultPartnerProvider.findSystemApk).
+            The receiver class does not need to exist; the package only has to be a system app.
+            priority=100 so this wins over LineageOS's own "Backgrounds" partner (priority 0).
+        -->
+        <receiver
+            android:name=".PartnerStubReceiver"
+            android:exported="true">
+            <intent-filter android:priority="100">
+                <action android:name="com.android.launcher3.action.PARTNER_CUSTOMIZATION" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

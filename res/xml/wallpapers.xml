@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Partner wallpaper definition, parsed by the LineageOS 23.2 wallpaper picker
+    (WallpaperPicker2 / com.android.wallpaper, DefaultCategoryProvider.getSystemCategories).
+
+    IMPORTANT: the attributes are deliberately UN-namespaced (id="..", not android:id="..").
+    The parser reads them with getAttributeValue(null, "id"), so an "android:" prefix
+    makes them invisible and the entry is skipped.
+
+    category: id = collection id, title = @string, optional thumbnail/featured/priority
+    static-wallpaper: id (required), src (drawable), title/subtitle1/subtitle2 (optional)
+-->
+<wallpapers>
+
+    <category
+        id="naze_wall"
+        title="@string/naze_wall_title">
+
+        <static-wallpaper
+            id="wallpaper_1"
+            src="@drawable/wallpaper_1"
+            title="@string/wallpaper_1_title" />
+
+        <static-wallpaper
+            id="wallpaper_2"
+            src="@drawable/wallpaper_2"
+            title="@string/wallpaper_2_title" />
+
+        <static-wallpaper
+            id="wallpaper_3"
+            src="@drawable/wallpaper_3"
+            title="@string/wallpaper_3_title" />
+
+    </category>
+
+</wallpapers>

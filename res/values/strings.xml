@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Name of the wallpaper-picker category -->
+    <string name="naze_wall_title">Naze Wall</string>
+
+    <!-- Per-wallpaper titles (shown while previewing) -->
+    <string name="wallpaper_1_title">Naze Wall 1</string>
+    <string name="wallpaper_2_title">Naze Wall 2</string>
+    <string name="wallpaper_3_title">Naze Wall 3</string>
+</resources>
