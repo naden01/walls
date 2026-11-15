@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Naze Wall</string>
+
     <!-- Name of the wallpaper-picker category -->
     <string name="naze_wall_title">Naze Wall</string>
 
     <!-- Per-wallpaper titles (shown while previewing) -->
     <string name="chilling_title">Chilling</string>
     <string name="green_title">Green</string>
+
+    <!-- Picker UI strings -->
+    <string name="apply_wallpaper">Apply wallpaper</string>
+    <string name="set_wallpaper_target">Set wallpaper</string>
+    <string name="set_home_screen">Home screen</string>
+    <string name="set_lock_screen">Lock screen</string>
+    <string name="set_both_screens">Home and lock screens</string>
+    <string name="applying_wallpaper">Applying wallpaper…</string>
+    <string name="wallpaper_applied">Wallpaper applied</string>
+    <string name="wallpaper_apply_failed">Failed to apply wallpaper</string>
+    <string name="no_wallpapers_found">No wallpapers found</string>
 </resources>

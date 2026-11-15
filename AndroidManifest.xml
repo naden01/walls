@@ -2,23 +2,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.custom.wallpapers">
 
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+
     <application
-        android:label="Naze Wall"
-        android:hasCode="false">
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
 
         <!--
-            Partner-customization hook. The wallpaper picker discovers this package by
-            querying broadcast receivers for this action (DefaultPartnerProvider.findSystemApk).
-            The receiver class does not need to exist; the package only has to be a system app.
-            priority=100 so this wins over LineageOS's own "Backgrounds" partner (priority 0).
+            Exposed both as a launcher app (works on ROMs with closed/hardcoded pickers
+            like AxionOS AxThemePicker) and as an ACTION_SET_WALLPAPER provider (appears
+            as its own category in AOSP/LineageOS WallpaperPicker2/ThemePicker without
+            replacing the ROM's built-in Backgrounds partner package).
         -->
-        <receiver
-            android:name=".PartnerStubReceiver"
-            android:exported="true">
-            <intent-filter android:priority="100">
-                <action android:name="com.android.launcher3.action.PARTNER_CUSTOMIZATION" />
+        <activity
+            android:name=".WallpaperPickerActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </receiver>
+            <intent-filter>
+                <action android:name="android.intent.action.SET_WALLPAPER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".WallpaperPreviewActivity"
+            android:exported="false"
+            android:theme="@style/PreviewTheme" />
 
     </application>
 

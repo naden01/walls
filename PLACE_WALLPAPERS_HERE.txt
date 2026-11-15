@@ -10,5 +10,9 @@ Requirements:
   - Resolution : >= 1080x2460 (this device), ideally 1440x3200
 
 Then register each image:
-  1. res/xml/wallpapers.xml  -> one <static-wallpaper> per image (UN-namespaced attributes!)
+  1. res/xml/wallpapers.xml  -> one <static-wallpaper> per image
   2. res/values/strings.xml  -> the title string per wallpaper
+
+Drop ringtones into:
+
+  ringtones/   (installed automatically to /product/media/audio/ringtones/)
