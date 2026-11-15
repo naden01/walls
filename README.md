@@ -1,52 +1,99 @@
-# CustomWallpapers — "Naze Wall"
+# CustomWallpapers ("Naze Wall")
 
-A universal wallpaper and ringtone package for AOSP-based ROMs (LineageOS, AxionOS,
-Pixel/GMS builds, crDroid, etc.).
+A plug-and-play wallpaper app and ringtone bundle for **any AOSP-based ROM** — LineageOS, AxionOS, crDroid, EvolutionX, Pixel/GMS builds, and plain AOSP.
 
-## How it works
+It keeps your ROM's stock wallpapers intact while adding your own custom wallpaper collection and ringtones.
 
-Instead of registering as a `PARTNER_CUSTOMIZATION` stub (which forces the picker to
-choose only ONE partner package and hides stock ROM wallpapers on LineageOS/AOSP, and is
-ignored completely by ROMs with custom pickers like AxionOS `AxThemePicker`),
-`CustomWallpapers` is a self-contained wallpaper picker app with zero external library
-dependencies:
+## Features
 
-- **AOSP / LineageOS (`ThemePicker` / `WallpaperPicker2` / Pixel):** exposes
-  `android.intent.action.SET_WALLPAPER` without `GET_CONTENT`, so it appears inside the
-  system wallpaper picker as its own **Naze Wall** category (`ThirdPartyAppCategory`)
-  *alongside* stock `Backgrounds` / Pixel wallpapers.
-- **AxionOS (`AxThemePicker`) & other ROMs/launchers:** exposes a launcher entry
-  (`MAIN` / `LAUNCHER`) so **Naze Wall** opens directly from the app drawer or launcher
-  chooser and applies Home / Lock / Both screens via `WallpaperManager`.
-- **Ringtones:** `CustomRingtones` (`prebuilt_media`, pulled in automatically via
-  `required: ["CustomRingtones"]`) installs everything in `ringtones/` to
-  `/product/media/audio/ringtones/`.
+- **Works on any ROM** — uses pure Android SDK APIs (`sdk_version: "current"`, zero external dependencies).
+- **Never replaces stock wallpapers** — no `PARTNER_CUSTOMIZATION` conflicts, so `Backgrounds` / Pixel / Axion wallpapers stay untouched.
+- **Integrates everywhere:**
+  - **LineageOS / AOSP / Pixel (`ThemePicker` / `WallpaperPicker2`):** appears inside **Wallpaper & style** as its own **Naze Wall** category.
+  - **AxionOS (`AxThemePicker`) & custom launchers:** opens directly from the **App Drawer** (or launcher wallpaper chooser) and lets you preview and apply to **Home screen**, **Lock screen**, or **Both**.
+- **Automatic ringtone install** — any audio files in `ringtones/` are automatically installed to `/product/media/audio/ringtones/`.
 
-## Add wallpapers
+## Quick Start
 
-1. Drop images into `res/drawable-nodpi/` (e.g. `wallpaper_1.png`).
-2. Add one `<static-wallpaper>` per image in `res/xml/wallpapers.xml`.
-3. Add the display title in `res/values/strings.xml`.
+### 1. Add the repo to your ROM tree
 
-To add ringtones, drop audio files (`.mp3` / `.ogg`) into `ringtones/`.
+Clone it into `packages/apps/CustomWallpapers` (or anywhere your tree scans `Android.bp`):
 
-## Build
-
-Include the module in your device makefile (see `setup.mk`):
-
-```make
-PRODUCT_PACKAGES += CustomWallpapers
+```bash
+git clone https://github.com/naden01/walls packages/apps/CustomWallpapers
 ```
 
-No `$(filter-out Backgrounds,...)` workaround is needed; stock ROM wallpapers remain
-intact.
+Or add it to your `.repo/local_manifests/`:
 
-## Files
+```xml
+<project path="packages/apps/CustomWallpapers"
+         name="naden01/walls"
+         remote="github"
+         revision="main" />
+```
 
-- `Android.bp` — Soong `android_app` (`CustomWallpapers`) + `prebuilt_media` (`CustomRingtones`)
-- `AndroidManifest.xml` — `SET_WALLPAPER` + `LAUNCHER` activity declarations
-- `src/com/custom/wallpapers/` — native Android SDK picker & preview activities
-- `res/xml/wallpapers.xml` — category "Naze Wall" + wallpaper list
-- `res/values/strings.xml` — app, category, and wallpaper titles
-- `res/drawable-nodpi/` — wallpaper images
-- `ringtones/` — audio files installed to `/product/media/audio/ringtones/`
+### 2. Include it in your device makefile
+
+Add to `device.mk` (or `lineage_<device>.mk`):
+
+```make
+PRODUCT_PACKAGES += \
+    CustomWallpapers
+```
+
+That single line builds and installs both:
+- `/product/app/CustomWallpapers/CustomWallpapers.apk`
+- `/product/media/audio/ringtones/*` (via `CustomRingtones`)
+
+No `$(filter-out Backgrounds,...)` workaround is needed.
+
+## Adding Wallpapers
+
+1. **Drop your image** into `res/drawable-nodpi/` using lowercase letters, numbers, and underscores only (no spaces):
+   ```text
+   res/drawable-nodpi/my_wallpaper.jpg
+   ```
+   Supported formats: `.jpg`, `.png`, `.webp`.
+
+2. **Add the title** in `res/values/strings.xml`:
+   ```xml
+   <string name="my_wallpaper_title">My Wallpaper</string>
+   ```
+
+3. **Register it** inside `<category>` in `res/xml/wallpapers.xml`:
+   ```xml
+   <static-wallpaper
+       id="my_wallpaper"
+       src="@drawable/my_wallpaper"
+       title="@string/my_wallpaper_title" />
+   ```
+   *(Keep attributes un-namespaced — `id`, `src`, `title`, optional `subtitle1` / `subtitle2`, NOT `android:id`.)*
+
+## Adding Ringtones
+
+Drop `.mp3` or `.ogg` files into `ringtones/`:
+
+```text
+ringtones/My_Ringtone.mp3
+```
+
+They are picked up automatically by `Android.bp` (`CustomRingtones`) and appear in **Settings → Sound & vibration → Phone ringtone**.
+
+## Renaming the App or Category
+
+- **App name:** edit `app_name` in `res/values/strings.xml`.
+- **Category name:** edit `naze_wall_title` in `res/values/strings.xml` (and optionally `category id` in `res/xml/wallpapers.xml`).
+- **App icon:** edit `res/drawable/ic_launcher.xml`.
+
+## Repository Layout
+
+| Path | Purpose |
+| --- | --- |
+| `Android.bp` | Soong build rules for `CustomWallpapers` and `CustomRingtones` |
+| `AndroidManifest.xml` | Declares `LAUNCHER` and `SET_WALLPAPER` activities |
+| `src/com/custom/wallpapers/` | Wallpaper grid, XML parser, and full-screen preview/apply UI |
+| `res/xml/wallpapers.xml` | Wallpaper categories and entries |
+| `res/values/strings.xml` | App, category, and wallpaper titles |
+| `res/drawable-nodpi/` | Wallpaper images |
+| `ringtones/` | Ringtone audio files installed to `/product/media/audio/ringtones/` |
+| `setup.mk` | Example `PRODUCT_PACKAGES` snippet |
